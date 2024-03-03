@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  web:
+    container_name: web
+    image: web-system:1.0.0
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_USERNAME=root
+      - DB_PASSWORD=123456789
+      - DB_URL=jdbc:mysql://db:3306/web_system
+    depends_on:
+      - db
+  db:
+    container_name: web_system_db
+    image: mariadb:10.4.32
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456789
+      MARIADB_DATABASE: web_system
+    ports:
+      - "3306:3306"
