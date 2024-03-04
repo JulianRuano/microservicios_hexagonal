@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "7ddfdd27-1e50-479e-b35e-f574b66cd4f4",
+		"name": "SoftwareContable-CatalogoDeCuentas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27405932",
+		"_collection_link": "https://red-resonance-662403.postman.co/workspace/Team-Workspace~38472f16-09b4-4ccd-8086-8cda2710f4b1/collection/27405932-7ddfdd27-1e50-479e-b35e-f574b66cd4f4?action=share&source=collection_link&creator=27405932"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/chart-of-accounts/add-account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\":\"1\",\r\n    \"name\":\"Activos\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/chart-of-accounts/add-account",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"chart-of-accounts",
+						"add-account"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "activos",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
