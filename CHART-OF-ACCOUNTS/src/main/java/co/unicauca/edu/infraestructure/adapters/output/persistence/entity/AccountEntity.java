@@ -18,6 +18,7 @@ public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long tenantId;
     private String code;
     private String name;

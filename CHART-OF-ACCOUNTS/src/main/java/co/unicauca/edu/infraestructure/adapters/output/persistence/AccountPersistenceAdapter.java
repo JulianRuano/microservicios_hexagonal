@@ -6,7 +6,7 @@ import co.unicauca.edu.infraestructure.adapters.output.persistence.entity.Accoun
 import co.unicauca.edu.infraestructure.adapters.output.persistence.mapper.AccountEntityMapper;
 import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 
 

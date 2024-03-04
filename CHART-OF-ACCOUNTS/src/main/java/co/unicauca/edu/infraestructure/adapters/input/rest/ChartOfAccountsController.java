@@ -20,17 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ChartOfAccountsController {
     private final AddAccountUseCase addAccountUseCase;
-    private final ListAccountsUseCase listAccountsUseCase;
 
     @Autowired
-    public ChartOfAccountsController(AddAccountUseCase addAccountUseCase, ListAccountsUseCase listAccountsUseCase) {
+    public ChartOfAccountsController(AddAccountUseCase addAccountUseCase) {
         this.addAccountUseCase = addAccountUseCase;
-        this.listAccountsUseCase = listAccountsUseCase;
     }
 
 
     @ApiOperation(value = "Add a new account")
-    @PostMapping(value = "/add-account")
+    @PostMapping(value = "/add-account", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addAccount(@RequestBody AddAccountRequest request) {
         Account account = RestMapper.INSTANCE.toDomain(request);
         account = addAccountUseCase.addAccount(account);
