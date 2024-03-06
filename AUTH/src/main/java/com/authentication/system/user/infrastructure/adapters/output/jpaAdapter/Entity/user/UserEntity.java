@@ -8,8 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.authentication.system.auth.domain.model.Authority;
-import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.role.UserRole;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.role.RoleEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -17,7 +16,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -47,18 +46,14 @@ public class UserEntity implements UserDetails{
 	private boolean enabled = true;
 	private String profile;
 
-	@Builder.Default
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-	@JsonIgnore
-	private Set<UserRole> userRoles = new HashSet<>();
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private RoleEntity role;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<Authority> set = new HashSet<>();
-		this.userRoles.forEach(userRole -> {
-			set.add(new Authority(userRole.getRole().getRolName()));
-		});
-		return set;
+		Set<Authority> authorities = new HashSet<>();
+		authorities.add(new Authority(role.getRolName()));
+		return authorities;
 	}
 
 	@Override

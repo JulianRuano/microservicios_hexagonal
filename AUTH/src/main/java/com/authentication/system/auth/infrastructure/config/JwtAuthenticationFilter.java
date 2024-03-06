@@ -14,7 +14,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
 import com.authentication.system.auth.application.service.JwtService;
-import com.authentication.system.user.application.services.UserDetailsServiceImpl;
+import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.UserDetailsServiceImpl;
+
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

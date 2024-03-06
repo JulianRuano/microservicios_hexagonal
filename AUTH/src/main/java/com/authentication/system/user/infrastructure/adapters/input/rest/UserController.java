@@ -1,8 +1,5 @@
 package com.authentication.system.user.infrastructure.adapters.input.rest;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,58 +11,58 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.authentication.system.auth.infrastructure.api.controller.auth.AuthResponse;
-import com.authentication.system.user.application.services.IUserService;
-import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.role.Role;
-import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.role.UserRole;
-import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.user.UserEntity;
+import com.authentication.system.user.application.ports.input.IUserCreationManagerPort;
+import com.authentication.system.user.application.ports.input.IUserSearchManagerPort;
+import com.authentication.system.user.domain.models.User;
+import com.authentication.system.user.infrastructure.adapters.input.rest.data.request.user.UserCreateRequest;
+import com.authentication.system.user.infrastructure.adapters.input.rest.data.response.user.UserCreateResponse;
+import com.authentication.system.user.infrastructure.adapters.input.rest.data.response.user.UserGetResponse;
+import com.authentication.system.user.infrastructure.adapters.input.rest.mapper.IUserCreateMapper;
+import com.authentication.system.user.infrastructure.adapters.input.rest.mapper.IUserSearchMapper;
+
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private IUserService userService;
+    private final IUserCreationManagerPort userCreationManagerPort;
+    private final IUserSearchManagerPort userSearchManagerPort;
+    private final IUserCreateMapper userCreateMapper;
+    private final IUserSearchMapper userSearchMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/")
-    public ResponseEntity<AuthResponse>  saveUser(UserRequest userRequest) throws Exception {
-        Set<UserRole> roles = new HashSet<>();
-
-        UserEntity user = UserEntity.builder()
-                .username(userRequest.getUsername())
-                .password(passwordEncoder.encode(userRequest.getPassword()))
-                .name(userRequest.getName())
-                .email(userRequest.getEmail())
-                .enabled(userRequest.isEnabled())
-                .profile(userRequest.getProfile())
-
-                .build();
-
-        Role rol = new Role();
-        rol.setRolId(userRequest.roles.iterator().next().getRole().getRolId());
-        rol.setRolName(userRequest.roles.iterator().next().getRole().getRolName());
-
-        UserRole userRole = new UserRole();
-        userRole.setUser(user);
-        userRole.setRole(rol);
-
-        roles.add(userRole);
-  
-
-        return ResponseEntity.ok(userService.saveUser(user, roles));
+    public UserController(IUserCreationManagerPort userCreationManagerPort, IUserSearchManagerPort userSearchManagerPort, IUserCreateMapper userCreateMapper, IUserSearchMapper userSearchMapper) {
+        this.userCreationManagerPort = userCreationManagerPort;
+        this.userSearchManagerPort = userSearchManagerPort;
+        this.userCreateMapper = userCreateMapper;
+        this.userSearchMapper = userSearchMapper;
     }
 
-    @GetMapping("/{username}")
-    public UserEntity getUser(@PathVariable("username") String username) {
-        return userService.getUser(username);
+    @PostMapping("/")
+    public ResponseEntity<UserCreateResponse>  saveUser(UserCreateRequest userCreateRequest) {
+        User user = userCreateMapper.toUser(userCreateRequest);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userCreationManagerPort.createUser(user);
+        return ResponseEntity.ok(userCreateMapper.toUserCreateResponse(user));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserGetResponse> getUser(@PathVariable("id") Long id) {
+        User user = userSearchManagerPort.getUserById(id);
+        return ResponseEntity.ok(userSearchMapper.toUserGetResponse(user));
     }
 
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
-        userService.deleteUser(userId);
+        //TODO: implement delete user
     }
+
+    @GetMapping("/ping")
+    public String ping() {
+        return "pong";
+    }
+    
 }

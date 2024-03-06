@@ -1,5 +1,6 @@
 package com.authentication.system.user.infrastructure.adapters.output.jpaAdapter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.authentication.system.user.application.ports.output.IUserCreationOutputPort;
@@ -17,6 +18,7 @@ public class UserJpaAdapter implements IUserCreationOutputPort , IUserSearchOutp
 
     private final IUserPersistenceMappper userPersistenceMappper;
 
+    @Autowired
     private final IUserRepository userRepository;
 
     @Override

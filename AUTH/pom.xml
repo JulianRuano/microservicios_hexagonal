@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
-			<scope>runtime</scope>
+			<scope>3.3.2</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>

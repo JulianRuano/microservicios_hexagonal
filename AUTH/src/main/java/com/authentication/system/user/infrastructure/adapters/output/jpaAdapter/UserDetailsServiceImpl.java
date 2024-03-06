@@ -1,4 +1,4 @@
-package com.authentication.system.user.application.services;
+package com.authentication.system.user.infrastructure.adapters.output.jpaAdapter;
 
 import java.util.Optional;
 
@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.user.UserEntity;
 import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.repository.IUserRepository;
 
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Autowired
-    private IUserRepository userRepository;
+    private  IUserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

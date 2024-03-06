@@ -1,4 +1,4 @@
-package com.authentication.system.user.infrastructure.adapters.input.rest.data.request.user;
+package com.authentication.system.user.infrastructure.adapters.input.rest.data.response.user;
 
 import com.authentication.system.user.domain.models.Role;
 
@@ -14,12 +14,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCreateRequest {
-    private String username;
-    private String password;   
+public class UserGetResponse {
+    private Long id;
+    private String username; 
     private String name;
     private String email;
-    private String profile;
 
     private Role role;
 }

@@ -2,8 +2,8 @@ package com.authentication.system.user.infrastructure.adapters.output.jpaAdapter
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.role.Role;
+import com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.role.RoleEntity;
 
-public interface IRoleRepository extends JpaRepository<Role, Long>{
+public interface IRoleRepository extends JpaRepository<RoleEntity, Long>{
 
 }

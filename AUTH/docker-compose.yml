@@ -15,7 +15,7 @@ services:
       - db
   db:
     container_name: auth-system-db
-    image: mariadb:10.4.32
+    image: mariadb:11.2.3
     environment:
       MARIADB_ROOT_PASSWORD: 123456789
       MARIADB_DATABASE: auth_system

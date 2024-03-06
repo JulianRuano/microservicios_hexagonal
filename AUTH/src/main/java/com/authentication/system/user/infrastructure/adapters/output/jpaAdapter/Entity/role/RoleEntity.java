@@ -1,13 +1,10 @@
 package com.authentication.system.user.infrastructure.adapters.output.jpaAdapter.Entity.role;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,12 +13,11 @@ import lombok.Setter;
 @Table(name = "roles")
 @Getter
 @Setter
-public class Role {
+public class RoleEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rolId;
     private String rolName;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<UserRole> userRoles = new HashSet<>();
 }
+
