@@ -50,5 +50,12 @@ public class AuthController {
        return authService.getCurrentUser(authorizationHeader);
     }
 
+    //Ruta de comprobación de estado
+    @GetMapping(value = "status")
+    public ResponseEntity<String> status()
+    {
+        return ResponseEntity.ok("Servicio de autenticación en línea");
+    }
+
 }
     

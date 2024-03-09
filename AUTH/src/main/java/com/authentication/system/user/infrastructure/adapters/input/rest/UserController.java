@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,8 @@ import com.authentication.system.user.infrastructure.adapters.input.rest.data.re
 import com.authentication.system.user.infrastructure.adapters.input.rest.data.response.user.UserGetResponse;
 import com.authentication.system.user.infrastructure.adapters.input.rest.mapper.IUserCreateMapper;
 import com.authentication.system.user.infrastructure.adapters.input.rest.mapper.IUserSearchMapper;
+
+
 
 
 @CrossOrigin(origins = "*")
@@ -42,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserCreateResponse>  saveUser(UserCreateRequest userCreateRequest) {
+    public ResponseEntity<UserCreateResponse>  saveUser(@RequestBody UserCreateRequest userCreateRequest) {
         User user = userCreateMapper.toUser(userCreateRequest);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userCreationManagerPort.createUser(user);
