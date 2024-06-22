@@ -10,7 +10,6 @@ import com.product.infraestructure.adapters.output.jpaAdapter.repository.IProduc
 
 import lombok.AllArgsConstructor;
 
-
 @Component
 @AllArgsConstructor
 public class ProductCreateJpaAdapter implements IProductCreateOutputPort{
